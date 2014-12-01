@@ -19,7 +19,7 @@ This repository contains 2 binary files - file_0.bin and file_1.bin. The diff of
 
 The task is to write a command line application that will determine if 2 files are equal. file_0.bin and file_1.bin should be considered equal. Other files (e.g. README.md, LICENCE.txt) should be considered unequal.
 
-Future files that contain the pattern "/ID [<.*>]" should be considered equal.
+Future files that contain the pattern /\/ID \[<\.*\>\]/ should be considered equal.
 
 Future files may be of any size.
 
