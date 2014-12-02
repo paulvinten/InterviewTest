@@ -7,7 +7,9 @@ This test is intended to be a simple test of coding ability. It should take up <
 
 ## Test Details
 
-This repository contains 2 binary files - file_0.bin and file_1.bin. The diff of the 2 files is as below:
+This repository contains 3 binary files - file_0.bin, file_1.bin and file_2.bin. 
+
+The diff of file_0.bin and file_1.bin is as below:
 
 	$ diff file_0.bin file_1.bin
 	26,27c26,27
@@ -17,9 +19,13 @@ This repository contains 2 binary files - file_0.bin and file_1.bin. The diff of
 	> /ID [<5C81F950DBAC76449A067E3B0E8E5B07>
 	> <B415FC2C79BB8CADC9C51AF05334780C>]
 
-The task is to write a command line application that will determine if 2 files are equal. file_0.bin and file_1.bin should be considered equal. Other files (e.g. README.md, LICENCE.txt) should be considered unequal.
+The task is to write a command line application that will determine if 2 files are equal. 
+* Files may or may not contain an /ID section.
+* Files should be considered equal when all bytes of the file are equal excluding any /ID sections. 
+* Other files (e.g. README.md, LICENCE.txt) should be considered unequal as they will not have an /ID section and will have binary differences. 
+* file_2.bin should also be considered unequal to other files as it has binary differences other than in the /ID section
 
-Future files that contain the pattern /\/ID \[<\.*\>\]/ should be considered equal.
+Future files that contain the pattern /\/ID \[<\.*\>\]/ and are otherwise binary equivalent should be considered equal.
 
 Future files may be of any size.
 
