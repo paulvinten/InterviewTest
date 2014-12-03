@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace FundsLibraryTest
 {
-    class FileComparisonExclusion
+    public enum FileComparisonEntry
     {
+        Unknown,
+        Same,
+        Different,
+        Mitigated,
+        Missing
     }
 }

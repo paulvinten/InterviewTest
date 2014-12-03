@@ -8,5 +8,8 @@ namespace FundsLibraryTest
 {
     class FileComparisonReport
     {
+        public IEnumerable<FileComparisonEntry> Data { get; set; }
+
+        public bool FilesAreSame { get; set; }
     }
 }
