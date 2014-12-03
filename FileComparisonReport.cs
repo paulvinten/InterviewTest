@@ -2,14 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FundsLibraryTest
 {
     class FileComparisonReport
     {
-        public IEnumerable<FileComparisonEntry> Data { get; set; }
+        private readonly IEnumerable<FileComparisonEntry> m_resultData;
 
-        public bool FilesAreSame { get; set; }
+        public FileComparisonReport(IEnumerable<FileComparisonEntry> m_resultData)
+        {
+            this.m_resultData = m_resultData;
+        }
+
+        public bool FilesAreSame
+        {
+            get
+            {
+                var failed = m_resultData.Where(x =>
+                    !x.Equals(FileComparisonEntry.Same) ||
+                    !x.Equals(FileComparisonEntry.Mitigated));
+
+                return !failed.Any();
+            }
+        }
     }
 }

@@ -24,34 +24,44 @@ namespace FundsLibraryTest
 
         internal FileComparisonReport GenerateReport(FileComparisonHandle other)
         {
-            var report = new FileComparisonReport();
             //do intial binary analysis
             using(var file1Stream = m_fileInfo.OpenRead())
             using (var file2Stream = other.m_fileInfo.OpenRead())
             {
-                var file1Data = ReadByteArray(file1Stream);
-                var file2Data = ReadByteArray(file1Stream);
 
-                var initialResultData = Enumerable.Repeat(FileComparisonEntry.Unknown, (int)file1Stream.Length).ToArray();
+                var reportGenerator = file1Stream.Length > file2Stream.Length ? 
+                    CompareDataStreams(file1Stream, file2Stream) : 
+                    CompareDataStreams(file2Stream, file1Stream);
 
-                for (var idx = 0; idx < file1Data.Length; idx++)
-                {
-                    if (file2Data.Length > idx)
-                    {
-                        initialResultData[idx] = file1Data[idx] == file2Data[idx]
-                            ? FileComparisonEntry.Same
-                            : FileComparisonEntry.Different;
-                    }
-                    else
-                    {
-                        initialResultData[idx] = FileComparisonEntry.Missing;
-                    }
-                }
+                reportGenerator.AddExclusion(new IdExclusion());
 
-                report.Data = initialResultData;
-
+                return reportGenerator.Generate();
             }
-            return report;
+        }
+
+        private static FileComparisonReportGenerator CompareDataStreams(FileStream fileAStream, FileStream fileBStream)
+        {
+
+            var fileAData = ReadByteArray(fileAStream);
+            var fileBData = ReadByteArray(fileBStream);
+
+            var initialResultData = Enumerable.Repeat(FileComparisonEntry.Unknown, (int)fileAData.Length).ToArray();
+
+            for (var idx = 0; idx < fileAData.Length; idx++)
+            {
+                if (fileBData.Length > idx)
+                {
+                    initialResultData[idx] = fileAData[idx] == fileBData[idx]
+                        ? FileComparisonEntry.Same
+                        : FileComparisonEntry.Different;
+                }
+                else
+                {
+                    initialResultData[idx] = FileComparisonEntry.Missing;
+                }
+            }
+
+            return new FileComparisonReportGenerator(initialResultData, fileAStream, fileBStream );
         }
 
         private static byte[] ReadByteArray(FileStream fileStream)

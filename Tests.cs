@@ -18,7 +18,7 @@ namespace FundsLibraryTest
             var handle2 = new FileComparisonHandle("file_1.bin");
 
             var report = handle1.GenerateReport(handle2);
-
+             
             Assert.IsTrue(report.FilesAreSame);
         }
 
@@ -26,7 +26,7 @@ namespace FundsLibraryTest
         public void CheckReadmeAndLicenceAreNotEqual()
         {
             var handle1 = new FileComparisonHandle("README.md");
-            var handle2 = new FileComparisonHandle("LICENCE.txt");
+            var handle2 = new FileComparisonHandle("LICENSE.txt");
 
             var report = handle1.GenerateReport(handle2);
 
