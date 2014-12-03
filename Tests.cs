@@ -58,7 +58,6 @@ namespace FundsLibraryTest
             {
                 Assert.IsInstanceOfType(ex, typeof(FileNotFoundException));
             }
-            
         }
     }
 }

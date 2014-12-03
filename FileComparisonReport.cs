@@ -19,7 +19,7 @@ namespace FundsLibraryTest
             get
             {
                 var failed = m_resultData.Where(x =>
-                    !x.Equals(FileComparisonEntry.Same) ||
+                    !x.Equals(FileComparisonEntry.Same) &&
                     !x.Equals(FileComparisonEntry.Mitigated));
 
                 return !failed.Any();
